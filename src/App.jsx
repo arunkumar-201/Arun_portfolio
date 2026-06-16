@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -24,14 +24,44 @@ import {
 
 const profile = {
   name: 'Arun Kumar Danda',
-  title: 'AI Developer | Full Stack Developer | C++ Programmer | Open Source Contributor',
+  title: 'AI Engineer | Full Stack Developer | Open Source Contributor | C++ Programmer',
   email: 'dandaarunkumar777@gmail.com',
   githubUser: 'arunkumar-201',
   github: 'https://github.com/arunkumar-201',
   linkedin: 'https://www.linkedin.com/in/arunkumardanda/'
 };
 
-const navItems = ['About', 'Skills', 'Projects', 'Open Source', 'GitHub', 'Contact'];
+const navItems = ['About', 'Journey', 'Skills', 'Projects', 'Open Source', 'GitHub', 'Contact'];
+
+const professionalTitles = ['AI Developer', 'Full Stack Developer', 'Open Source Contributor', 'C++ Programmer'];
+
+const journey = [
+  {
+    year: '2023',
+    heading: 'Programming Foundations',
+    items: ['Started Computer Science Engineering', 'Learned C++ Programming', 'Built Foundation in DSA', 'Explored Core Computer Science'],
+    badges: []
+  },
+  {
+    year: '2024',
+    heading: 'Full Stack Development Journey',
+    items: ['Learned HTML, CSS, JavaScript', 'Started MERN Stack Development', 'Built Full Stack Applications', 'Worked on Real-World Projects'],
+    badges: []
+  },
+  {
+    year: '2025',
+    heading: 'AI Innovation & Advanced Systems',
+    items: ['Built Judicial RAG Bot', 'Developed AI Mock Interview Platform', 'Participated in Adobe India Hackathon', 'Exploring AI Agents', 'Learning MCP Applications', ],
+    badges: ['🏆 Adobe India Hackathon','🏆 3rd price in Webdevelopment Competition']
+  },
+  {
+    year: '2026',
+    heading: 'Open Source & AI Exploration',
+    items: ['Selected as GSSoC 2026 Contributor', 'Started Open Source Contributions','Expanding Open Source Contributions', 'Built NxtBiz AI', 'Started Building AI Applications'],
+    badges: [ '🌟 GSSoC Contributor']
+  }
+  
+];
 
 const skills = [
   { title: 'Programming Languages', icon: Code2, items: ['C++', 'JavaScript', 'Python', 'SQL'] },
@@ -54,45 +84,96 @@ const skills = [
 
 const projects = [
   {
-    title: 'NxtBiz AI',
-    badge: 'Flagship Project',
-    description:
-      'AI-powered business operations platform designed to automate workflows, streamline business processes, improve productivity, and provide intelligent insights.',
-    focus: ['Workflow automation', 'Operational intelligence', 'Productivity systems']
-  },
-  {
-    title: 'AI Career Guidance System',
-    badge: 'AI Product',
-    description:
-      'AI-powered career guidance platform that recommends career paths through skill analysis, resume evaluation, and personalized suggestions.',
-    focus: ['Skill analysis', 'Resume evaluation', 'Personalized guidance']
+title: 'NxtBiz AI',
+badge: '⭐ Flagship Project',
+
+description:
+'AI-powered business operations platform designed to automate workflows, streamline business processes, improve productivity, and provide intelligent business insights.',
+
+problem:
+'Businesses struggle with fragmented workflows and manual operational processes.',
+
+solution:
+'Centralized AI-powered platform that improves workflow efficiency and operational visibility.',
+
+impact: [
+'Workflow Automation',
+'Business Intelligence',
+'Productivity Optimization',
+'Operational Visibility'
+],
+
+highlights: [
+'AI Integration',
+'REST APIs',
+'Dashboard Analytics',
+'Scalable Architecture'
+],
+
+features: [
+'Workflow Automation',
+'Business Intelligence',
+'Productivity Optimization',
+'Dashboard Management'
+],
+
+stack: [
+'React',
+'Node.js',
+'Express',
+'MongoDB',
+'AI Automation'
+],
+
+github: 'https://github.com/arunkumar-201/NxtBiz',
+
+demo: null
   },
   {
     title: 'Adobe India Hackathon Project',
-    badge: 'Hackathon Project',
+    badge: '🏆 Hackathon Project',
     description:
-      'Document intelligence solution focused on PDF understanding, outline extraction, and persona-based document analysis.',
+      'Document intelligence platform capable of PDF understanding, outline extraction, and persona-based analysis.',
     achievement: 'Top 2000 Participant Among 200,000+ Participants',
-    focus: ['PDF understanding', 'Outline extraction', 'Persona-based analysis']
+    problem: 'Large PDF documents are difficult to understand and analyze efficiently.',
+    solution:
+      'Document intelligence platform capable of PDF understanding, outline extraction, and persona-based analysis.',
+    features: ['PDF Understanding', 'Outline Extraction', 'Persona Analysis', 'Document Intelligence'],
+    stack: ['React', 'Python', 'OCR', 'NLP'],
+    github: 'https://github.com/arunkumar-201/adobe-connecting-the-dots-1b',
+    demo: null
   },
   {
-    title: 'MediDoc AI',
-    badge: 'AI Healthcare',
-    description: 'Smart health record analyzer that extracts and summarizes medical PDF information using AI.',
-    focus: ['Medical PDFs', 'Summarization', 'Information extraction']
+    title: 'Judicial RAG Bot',
+    badge: '⚖️ Generative AI',
+    description:
+      'RAG-powered legal assistant using semantic search and intelligent retrieval.',
+    problem: 'Finding relevant legal information is time-consuming.',
+    solution:
+      'RAG-powered legal assistant using semantic search and intelligent retrieval.',
+    features: ['Legal Search', 'RAG Pipeline', 'AI Summaries', 'Document Retrieval'],
+    stack: ['Streamlit', 'Python', 'RAG', 'Semantic Search'],
+    github: 'https://github.com/arunkumar-201/judicial_rag_bot',
+    demo: 'https://judicialragbot-ka3v8jcfmrmg9twu4bbdw3.streamlit.app/'
   },
   {
-    title: 'Healthcare Claims Fraud Detection',
-    badge: 'Analytics',
-    description: 'Power BI dashboard for healthcare fraud detection and claims analysis.',
-    focus: ['Power BI', 'Claims analytics', 'Fraud detection']
+    title: 'AI Mock Interview Platform',
+    badge: '🤖 AI Product',
+    description:
+      'AI-powered mock interview system with evaluation and feedback.',
+    problem: 'Interview preparation lacks personalized feedback.',
+    solution: 'AI-powered mock interview system with evaluation and feedback.',
+    features: ['AI Questions', 'HR Interviews', 'Technical Interviews', 'Speech Analysis', 'Performance Reports'],
+    stack: ['React', 'Node.js', 'AI', 'Speech Analysis'],
+    github: 'https://github.com/arunkumar-201/AI-Mock-Interview-Platform',
+    demo: 'https://ai-mock-interview-platform-two-red.vercel.app/login'
   }
 ];
 
 const achievements = [
-  'Top 2000 Participant - Adobe India Hackathon',
+  'Top 2000 Participant – Adobe India Hackathon',
   'GSSoC 2026 Contributor',
-  'Built 15+ Projects',
+  'Built 20+ Projects',
   'Open Source Contributions',
   'MERN Stack Developer'
 ];
@@ -106,6 +187,8 @@ const fadeUp = {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
+  const [activeTitleIndex, setActiveTitleIndex] = useState(0);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
@@ -116,13 +199,35 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const shown = window.sessionStorage.getItem('portfolio_intro_shown');
+    if (!shown) {
+      setShowIntro(true);
+      const timeout = window.setTimeout(() => {
+        window.sessionStorage.setItem('portfolio_intro_shown', 'true');
+        setShowIntro(false);
+      }, 2800);
+      return () => window.clearTimeout(timeout);
+    }
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveTitleIndex((value) => (value + 1) % professionalTitles.length);
+    }, 3200);
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <main className="min-h-screen overflow-hidden bg-ink text-white">
+      <AnimatePresence>{showIntro && <IntroOverlay />}</AnimatePresence>
       <motion.div className="fixed left-0 right-0 top-0 z-50 h-1 origin-left bg-gradient-to-r from-mint via-cyan to-coral" style={{ scaleX }} />
       <Aurora />
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Hero />
+      <Hero activeTitle={professionalTitles[activeTitleIndex]} />
       <About />
+      <Journey />
       <Skills />
       <Projects />
       <OpenSource />
@@ -186,24 +291,29 @@ function Header({ menuOpen, setMenuOpen }) {
   );
 }
 
-function Hero() {
+function Hero({ activeTitle }) {
   const y = useTransform(useScroll().scrollY, [0, 650], [0, 120]);
 
   return (
-    <section id="top" className="relative isolate min-h-[100svh] px-4 pt-32 sm:pt-36">
+    <section id="top" className="relative isolate min-h-[100svh] overflow-hidden px-4 pt-32 sm:pt-36">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(102,217,255,0.16),transparent_24%),radial-gradient(circle_at_80%_10%,rgba(95,255,210,0.1),transparent_24%)]" />
+      <div className="absolute inset-x-0 top-0 h-[20rem] bg-[radial-gradient(circle_at_top,rgba(102,217,255,0.18),transparent_50%)] blur-3xl" />
       <div className="mx-auto grid max-w-7xl items-center gap-12 pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28">
         <motion.div variants={fadeUp} initial="hidden" animate="visible" className="relative z-10">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-white/8 px-3 py-2 text-sm text-white/75 shadow-panel backdrop-blur-xl">
             <span className="h-2 w-2 rounded-full bg-mint shadow-[0_0_22px_rgba(95,255,210,0.9)]" />
-            AI Developer building recruiter-ready proof of work
+            AI Engineer building premium product and system-level proof of work
           </div>
-          <h1 className="max-w-5xl font-display text-5xl font-bold leading-[0.98] tracking-normal text-white sm:text-6xl lg:text-7xl">
-            Building Intelligent AI Solutions For Real-World Problems
+          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-cyan/80">ARUN KUMAR DANDA</p>
+          <h1 className="max-w-5xl font-display text-5xl font-semibold leading-[0.98] tracking-normal text-white sm:text-6xl lg:text-7xl">
+            Designing modern AI systems, full-stack experiences, and open-source infrastructure.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/68 sm:text-xl">
-            AI Developer, Full Stack Engineer, and Open Source Contributor focused on building impactful products and scalable intelligent systems.
+          <div className="mt-6 text-sm uppercase tracking-[0.24em] text-white/60">
+            <TypingText text={activeTitle} />
+          </div>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl">
+            AI Engineer, Full Stack Developer, Open Source Contributor, and C++ Programmer focused on premium products, AI workflows, and software reliability.
           </p>
-          <p className="mt-4 max-w-2xl text-sm leading-6 text-white/55">{profile.title}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <PrimaryButton href="#projects" icon={<ArrowDown size={18} />}>
               View Projects
@@ -227,6 +337,61 @@ function Hero() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function IntroOverlay() {
+  return (
+    <motion.div
+      key="intro-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.35 } }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#05070d]/95 px-4"
+    >
+      <div className="relative flex w-full max-w-3xl flex-col items-center gap-8 rounded-[3rem] border border-white/10 bg-[#071016]/95 px-8 py-10 text-center text-white shadow-[0_0_120px_rgba(59,130,246,0.2)] backdrop-blur-3xl sm:px-12 sm:py-14">
+        <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
+          <div className="absolute left-1/2 top-1/3 h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-cyan/15 blur-3xl" />
+          <div className="absolute left-10 top-16 h-[220px] w-[220px] rounded-full bg-mint/15 blur-3xl" />
+          <div className="absolute right-10 bottom-16 h-[260px] w-[260px] rounded-full bg-violet/15 blur-3xl" />
+          <div className="absolute inset-0 opacity-40">
+            <div className="h-full w-full bg-[radial-gradient(circle_at_top_left,rgba(95,255,210,0.12),transparent_18%),radial-gradient(circle_at_bottom_right,rgba(102,217,255,0.08),transparent_16%)]" />
+          </div>
+          <div className="absolute inset-0 opacity-80">
+            <div className="absolute left-[12%] top-[18%] h-1.5 w-24 rounded-full bg-white/5" />
+            <div className="absolute left-[28%] top-[34%] h-0.5 w-12 rounded-full bg-white/10" />
+            <div className="absolute left-[18%] top-[32%] h-3 w-3 rounded-full bg-cyan/80 blur-sm" />
+            <div className="absolute right-[18%] top-[26%] h-2.5 w-2.5 rounded-full bg-mint/80 blur-sm" />
+            <div className="absolute right-[24%] bottom-[24%] h-1.5 w-20 rounded-full bg-white/5" />
+            <div className="absolute left-[40%] bottom-[28%] h-0.5 w-14 rounded-full bg-white/10" />
+            <div className="absolute left-[46%] bottom-[38%] h-2 w-2 rounded-full bg-violet/80 blur-sm" />
+            <div className="absolute left-[64%] top-[16%] h-2 w-2 rounded-full bg-white/70" />
+            <div className="absolute right-[10%] top-[54%] h-2 w-2 rounded-full bg-cyan/70" />
+            <div className="absolute left-[22%] bottom-[14%] h-1 w-10 rounded-full bg-white/10" />
+          </div>
+        </div>
+        <div className="relative z-10 flex flex-col items-center gap-4">
+          <p className="text-sm uppercase tracking-[0.28em] text-cyan/80">Welcome to my portfolio</p>
+          <h1 className="max-w-3xl text-center font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
+            ARUN KUMAR DANDA
+          </h1>
+          <p className="max-w-3xl text-center text-sm uppercase tracking-[0.35em] text-white/60 sm:text-base">
+            AI ENGINEER • FULL STACK DEVELOPER • OPEN SOURCE CONTRIBUTOR • C++ PROGRAMMER
+          </p>
+        </div>
+        <div className="w-full overflow-hidden rounded-full border border-white/10 bg-black/20">
+          <motion.div
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 2.7, ease: 'easeInOut' }}
+            className="h-2 rounded-full bg-gradient-to-r from-cyan via-mint to-violet"
+          />
+        </div>
+        <p className="relative z-10 max-w-xl text-center text-sm leading-6 text-white/60">
+          High-performance AI portfolio experience.
+        </p>
+      </div>
+    </motion.div>
   );
 }
 
@@ -323,6 +488,50 @@ function About() {
   );
 }
 
+function Journey() {
+  return (
+    <Section id="journey" eyebrow="Journey" title="The path from foundational learning to AI product innovation.">
+      <div className="grid gap-6 lg:grid-cols-2">
+        {journey.map((step, index) => (
+          <motion.article
+            key={step.year}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-90px' }}
+            transition={{ duration: 0.7, delay: index * 0.08 }}
+            className="group relative overflow-hidden rounded-[2.5rem] border border-line bg-panel p-6 shadow-panel backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan/30"
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan to-mint opacity-80" />
+            <div className="relative">
+              <span className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan/75">{step.year}</span>
+              <h3 className="mt-4 text-2xl font-semibold text-white">{step.heading}</h3>
+              <div className="mt-4 space-y-3">
+                {step.items.map((item) => (
+                  <div key={item} className="group flex items-start gap-3 rounded-3xl border border-white/5 bg-black/15 px-4 py-3 transition hover:border-cyan/40 hover:bg-white/5">
+                    <span className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-white/5 text-cyan shadow-[0_0_30px_rgba(102,217,255,0.12)]">
+                      <CheckCircle2 size={18} />
+                    </span>
+                    <p className="text-sm leading-6 text-white/70">{item}</p>
+                  </div>
+                ))}
+              </div>
+              {step.badges.length > 0 && (
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {step.badges.map((badge) => (
+                    <span key={badge} className="rounded-full border border-cyan/20 bg-cyan/10 px-3 py-2 text-xs font-medium text-cyan">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 function Skills() {
   return (
     <Section id="skills" eyebrow="Skills" title="A practical stack for building intelligent, usable software.">
@@ -358,45 +567,128 @@ function Skills() {
 }
 
 function Projects() {
+  const featured = projects[0];
+  const others = projects.slice(1);
+
   return (
-    <Section id="projects" eyebrow="Featured Projects" title="Selected proof of work across AI, documents, healthcare, analytics, and business automation.">
-      <div className="grid gap-5 lg:grid-cols-2">
-        {projects.map((project, index) => (
+    <Section id="projects" eyebrow="Featured Projects" title="Premium AI products and high-signal engineering work.">
+      <motion.article
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-90px' }}
+        className="group relative overflow-hidden rounded-[3rem] border border-line bg-panel p-8 shadow-panel backdrop-blur-3xl transition duration-300 hover:-translate-y-1 hover:border-cyan/35"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-transparent to-mint/10 opacity-70" />
+        <div className="relative z-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
+          <div>
+            <span className="rounded-full border border-mint/25 bg-mint/10 px-4 py-2 text-sm font-semibold text-mint">{featured.badge}</span>
+            <h3 className="mt-6 font-display text-4xl font-semibold text-white sm:text-5xl">{featured.title}</h3>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-white/72">{featured.description}</p>
+            <div className="mt-6 space-y-4 rounded-3xl border border-white/10 bg-black/20 p-6">
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-cyan/70">Problem Statement</p>
+                <p className="mt-3 text-white/70">{featured.problem}</p>
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-cyan/70">Solution</p>
+                <p className="mt-3 text-white/70">{featured.solution}</p>
+              </div>
+            </div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <ProjectMeta label="Features" values={featured.features} />
+              <ProjectMeta label="Tech Stack" values={featured.stack} />
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <PrimaryButton href={featured.github} icon={<ArrowUpRight size={18} />}>
+                View on GitHub
+              </PrimaryButton>
+            </div>
+          </div>
+          {/* <div className="hidden min-h-[220px] w-full rounded-[2rem] border border-line bg-black/20 p-6 shadow-panel lg:block">
+            <div className="flex items-center gap-3">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-cyan/15 text-cyan">✨</span>
+             
+            </div>
+          </div> */}
+        </div>
+      </motion.article>
+      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+        {others.map((project, index) => (
           <motion.article
             key={project.title}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-70px' }}
-            className={`group relative overflow-hidden rounded-3xl border border-line bg-panel p-6 shadow-panel backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan/35 ${
-              index === 0 ? 'lg:col-span-2' : ''
-            }`}
+            viewport={{ once: true, margin: '-90px' }}
+            transition={{ delay: index * 0.08 }}
+            className="group relative overflow-hidden rounded-[2.5rem] border border-line bg-panel p-6 shadow-panel backdrop-blur-3xl transition duration-300 hover:-translate-y-1 hover:border-cyan/35"
           >
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/60 to-transparent opacity-0 transition group-hover:opacity-100" />
-            <div className="flex flex-wrap items-start justify-between gap-4">
+            <span className="rounded-full border border-mint/25 bg-mint/10 px-3 py-1 text-xs font-medium text-mint">{project.badge}</span>
+            <h3 className="mt-5 font-display text-2xl font-semibold text-white">{project.title}</h3>
+            <p className="mt-4 text-sm text-white/65">{project.description}</p>
+            <div className="mt-5 space-y-4">
               <div>
-                <span className="rounded-full border border-mint/25 bg-mint/10 px-3 py-1 text-xs font-medium text-mint">{project.badge}</span>
-                <h3 className="mt-5 font-display text-2xl font-semibold text-white">{project.title}</h3>
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan/70">Problem</p>
+                <p className="mt-2 text-white/70">{project.problem}</p>
               </div>
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white/8 text-white/70 transition group-hover:bg-white group-hover:text-ink">
-                <ArrowUpRight size={19} />
-              </span>
+              <div>
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan/70">Solution</p>
+                <p className="mt-2 text-white/70">{project.solution}</p>
+              </div>
             </div>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-white/68">{project.description}</p>
-            {project.achievement && (
-              <p className="mt-4 inline-flex rounded-2xl border border-coral/25 bg-coral/10 px-4 py-2 text-sm font-medium text-coral">{project.achievement}</p>
-            )}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {project.focus.map((item) => (
-                <span key={item} className="rounded-full border border-line bg-black/20 px-3 py-1.5 text-xs text-white/55">
-                  {item}
-                </span>
-              ))}
+            <div className="mt-5 grid gap-2 text-xs text-white/55 sm:grid-cols-2">
+              <div>
+                <p className="text-[0.65rem] uppercase tracking-[0.26em] text-white/40">Features</p>
+                <ul className="mt-2 space-y-2">
+                  {project.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2">
+                      <span className="text-mint">•</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-[0.65rem] uppercase tracking-[0.26em] text-white/40">Tech Stack</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {project.stack.map((item) => (
+                    <span key={item} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.72rem] text-white/70">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <SecondaryButton href={project.github} icon={<ArrowUpRight size={18} />}>
+                GitHub
+              </SecondaryButton>
+              {project.demo && (
+                <SecondaryButton href={project.demo} icon={<ArrowUpRight size={18} />}>
+                  Live Demo
+                </SecondaryButton>
+              )}
             </div>
           </motion.article>
         ))}
       </div>
     </Section>
+  );
+}
+
+function ProjectMeta({ label, values }) {
+  return (
+    <div className="rounded-3xl border border-white/10 bg-black/15 p-5">
+      <p className="text-xs uppercase tracking-[0.24em] text-white/40">{label}</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {values.map((value) => (
+          <span key={value} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/70">
+            {value}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -443,24 +735,6 @@ function Achievements() {
 }
 
 function GitHubShowcase() {
-  const [repos, setRepos] = useState([]);
-  const [status, setStatus] = useState('loading');
-
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch(`https://gh-pinned-repos.egoist.dev/?username=${profile.githubUser}`, { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error('Pinned repository request failed');
-        return response.json();
-      })
-      .then((data) => {
-        setRepos(Array.isArray(data) ? data.slice(0, 4) : []);
-        setStatus('ready');
-      })
-      .catch(() => setStatus('error'));
-    return () => controller.abort();
-  }, []);
-
   const githubImages = useMemo(
     () => [
       {
@@ -484,7 +758,7 @@ function GitHubShowcase() {
   );
 
   return (
-    <Section id="github" eyebrow="GitHub Showcase" title="Live public GitHub signals, loaded directly from Arun's profile.">
+    <Section id="github" eyebrow="GitHub Showcase" title="Live public GitHub signals and contribution metrics.">
       <div className="grid gap-5 lg:grid-cols-2">
         {githubImages.map((image) => (
           <div key={image.title} className="overflow-hidden rounded-3xl border border-line bg-panel p-4 shadow-panel backdrop-blur-xl">
@@ -498,41 +772,12 @@ function GitHubShowcase() {
           </div>
         ))}
       </div>
-
-      <div className="mt-5 rounded-3xl border border-line bg-panel p-5 shadow-panel backdrop-blur-xl">
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <h3 className="font-display text-xl font-semibold">Pinned Repositories</h3>
-          <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-cyan hover:text-mint">
-            View GitHub <ArrowUpRight size={16} />
-          </a>
-        </div>
-        {status === 'loading' && <p className="text-sm text-white/55">Loading public repositories from GitHub...</p>}
-        {status === 'error' && <p className="text-sm text-white/55">Pinned repository data is temporarily unavailable.</p>}
-        {status === 'ready' && (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {repos.map((repo) => (
-              <a
-                key={`${repo.owner}/${repo.repo}`}
-                href={repo.link}
-                target="_blank"
-                rel="noreferrer"
-                className="group rounded-2xl border border-line bg-black/20 p-4 transition hover:-translate-y-1 hover:border-cyan/40 hover:bg-white/8"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-display text-base font-semibold text-white group-hover:text-cyan">{repo.repo}</h4>
-                  <ArrowUpRight size={16} className="shrink-0 text-white/35 group-hover:text-cyan" />
-                </div>
-                <p className="mt-3 line-clamp-3 min-h-16 text-sm leading-6 text-white/55">{repo.description || 'Pinned public GitHub repository.'}</p>
-                <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/45">
-                  {repo.language && <span>{repo.language}</span>}
-                  <span>{repo.stars} stars</span>
-                  <span>{repo.forks} forks</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-line bg-black/15 p-5 shadow-panel backdrop-blur-xl">
+        <p className="text-sm text-white/65">High-quality GitHub signals without inflated repository cards.</p>
+        <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-cyan/25 bg-cyan/10 px-4 py-2 text-sm text-cyan transition hover:bg-cyan/15">
+          View Full GitHub Profile <ArrowUpRight size={16} />
+        </a>
+      </div> */}
     </Section>
   );
 }
@@ -679,6 +924,30 @@ function ContactLink({ href, icon, label, value }) {
         <span className="block truncate text-sm font-medium text-white/82">{value}</span>
       </span>
     </a>
+  );
+}
+
+function TypingText({ text }) {
+  const [displayed, setDisplayed] = useState('');
+
+  useEffect(() => {
+    setDisplayed('');
+    let index = 0;
+    const interval = window.setInterval(() => {
+      setDisplayed((prev) => prev + text[index]);
+      index += 1;
+      if (index >= text.length) {
+        window.clearInterval(interval);
+      }
+    }, 70);
+    return () => window.clearInterval(interval);
+  }, [text]);
+
+  return (
+    <span className="inline-flex items-center gap-2 text-white">
+      <span className="font-semibold text-white">{displayed}</span>
+      <span className="h-5 w-0.5 rounded-full bg-white animate-blink" />
+    </span>
   );
 }
 

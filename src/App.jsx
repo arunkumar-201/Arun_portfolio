@@ -295,7 +295,9 @@ function Hero({ activeTitle }) {
   const y = useTransform(useScroll().scrollY, [0, 650], [0, 120]);
 
   return (
-    <section id="top" className="relative isolate min-h-[100svh] overflow-hidden px-4 pt-32 sm:pt-36">
+    <section
+  id="top"
+  className="relative isolate min-h-[100svh] overflow-hidden px-4 pt-44 sm:pt-48 lg:pt-52">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(102,217,255,0.16),transparent_24%),radial-gradient(circle_at_80%_10%,rgba(95,255,210,0.1),transparent_24%)]" />
       <div className="absolute inset-x-0 top-0 h-[20rem] bg-[radial-gradient(circle_at_top,rgba(102,217,255,0.18),transparent_50%)] blur-3xl" />
       <div className="mx-auto grid max-w-7xl items-center gap-12 pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28">
@@ -305,14 +307,20 @@ function Hero({ activeTitle }) {
             AI Engineer building premium product and system-level proof of work
           </div>
           <p className="mb-4 text-xs uppercase tracking-[0.3em] text-cyan/80">ARUN KUMAR DANDA</p>
-          <h1 className="max-w-5xl font-display text-5xl font-semibold leading-[0.98] tracking-normal text-white sm:text-6xl lg:text-7xl">
-            Designing modern AI systems, full-stack experiences, and open-source infrastructure.
-          </h1>
-          <div className="mt-6 text-sm uppercase tracking-[0.24em] text-white/60">
-            <TypingText text={activeTitle} />
-          </div>
+        <h1 className="max-w-5xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+  Designing modern AI systems,
+  <br />
+  full-stack experiences,
+  <br />
+  and open-source infrastructure.
+</h1>
+         <div className="mt-8 h-[50px] flex items-center">
+  <span className="text-xl font-bold uppercase tracking-[0.22em] text-cyan">
+    {activeTitle}
+  </span>
+</div>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl">
-            AI Engineer, Full Stack Developer, Open Source Contributor, and C++ Programmer focused on premium products, AI workflows, and software reliability.
+            AI Engineer, Full Stack Developer, Open Source Contributor, and  C++ Programmer focused on premium products, AI workflows, and software reliability.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <PrimaryButton href="#projects" icon={<ArrowDown size={18} />}>
@@ -933,21 +941,27 @@ function TypingText({ text }) {
   useEffect(() => {
     setDisplayed('');
     let index = 0;
-    const interval = window.setInterval(() => {
-      setDisplayed((prev) => prev + text[index]);
-      index += 1;
-      if (index >= text.length) {
-        window.clearInterval(interval);
+
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayed((prev) => prev + text[index]);
+        index++;
+      } else {
+        clearInterval(interval);
       }
     }, 70);
-    return () => window.clearInterval(interval);
+
+    return () => clearInterval(interval);
   }, [text]);
 
   return (
-    <span className="inline-flex items-center gap-2 text-white">
-      <span className="font-semibold text-white">{displayed}</span>
-      <span className="h-5 w-0.5 rounded-full bg-white animate-blink" />
-    </span>
+    <div className="flex items-center gap-2">
+     <span className="text-xl font-bold uppercase tracking-[0.22em] text-cyan">
+        {displayed}
+      </span>
+
+      <span className="h-5 w-[2px] animate-pulse bg-cyan rounded-full" />
+    </div>
   );
 }
 
